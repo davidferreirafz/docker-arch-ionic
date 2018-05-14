@@ -3,6 +3,7 @@ MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
 
 RUN pacman -Syu --noconfirm 
 RUN pacman -S jdk8-openjdk fakeroot wget binutils libxtst fontconfig freetype2 libxrender lib32-glibc lib32-gcc-libs npm --noconfirm
+RUN useradd -m -g users -s /bin/bash user
 RUN chgrp users -R /opt/
 RUN chmod 777 -R /opt
 RUN cd /opt; 
