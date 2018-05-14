@@ -31,7 +31,8 @@ RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-platform-26.tar
 RUN tar -zxvf android-platform-26.tar.gz;
 RUN cd android-platform-26;
 RUN makepkg;
-
+RUN exit;
+RUN pacman -U download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm
 
 #RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-google-apis-23.tar.gz 
 #RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-platform-26.tar.gz
