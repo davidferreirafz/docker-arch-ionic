@@ -10,7 +10,7 @@ RUN cd /opt;
 RUN mkdir download;
 RUN chmod 777 -R download;
 RUN chgrp users -R download;
-RUN su user; whoami; cd download; wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz; tar -zxvf android-sdk.tar.gz; cd android-sdk; makepkg;
+RUN cd download; wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz; tar -zxvf android-sdk.tar.gz; cd android-sdk; pwd; sudo user makepkg;
 RUN exit;
 RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm;
 RUN su user;
