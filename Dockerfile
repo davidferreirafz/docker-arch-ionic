@@ -13,8 +13,24 @@ RUN su user;
 RUN cd download;
 RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz
 RUN tar -zxvf android-sdk.tar.gz
-RUN cd android-sdk
-RUN makepkg
+RUN cd android-sdk;
+RUN makepkg;
+RUN exit;
+RUN pacman -U download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm
+RUN su user;
+RUN cd download;
+RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-platform-tools.tar.gz;
+RUN tar -zxvf android-sdk-platform-tools.tar.gz;
+RUN cd android-sdk-platform-tools;
+RUN makepkg;
+RUN exit;
+RUN pacman -U download/android-sdk-platform-tools/android-sdk-platform-tools-r27.0.1-1-x86_64.pkg.tar.xz --noconfirm
+RUN su user;
+RUN cd download;
+RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-platform-26.tar.gz;
+RUN tar -zxvf android-platform-26.tar.gz;
+RUN cd android-platform-26;
+RUN makepkg;
 
 
 #RUN wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-google-apis-23.tar.gz 
