@@ -15,7 +15,8 @@ RUN cd /opt/download && \
 	makepkg && \
 	ls && pwd
 USER root
-RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm
+RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm  && \
+    rm -rf /opt/download/android-sdk/
 USER user
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-platform-tools.tar.gz && \
@@ -24,7 +25,8 @@ RUN cd /opt/download && \
 	makepkg && \
 	ls && pwd
 USER root
-RUN pacman -U /opt/download/android-sdk-platform-tools/android-sdk-platform-tools-r27.0.1-1-x86_64.pkg.tar.xz --noconfirm 
+RUN pacman -U /opt/download/android-sdk-platform-tools/android-sdk-platform-tools-r27.0.1-1-x86_64.pkg.tar.xz --noconfirm  && \
+    rm -rf /opt/download/android-sdk-platform-tools/
 USER user
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-platform-26.tar.gz && \
@@ -33,7 +35,5 @@ RUN cd /opt/download && \
 	makepkg && \
 	ls && pwd
 USER root
-RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm 
-  	
-	
-	
+RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm  && \
+    rm -rf /opt/download/android-platform-26/
