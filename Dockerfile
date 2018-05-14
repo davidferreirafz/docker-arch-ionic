@@ -15,7 +15,7 @@ RUN cd /opt/download && \
 	makepkg && \
 	ls && pwd
 USER root
-RUN pacman -U /opt/download/android-sdk-platform-tools/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm 
+RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm
 USER user
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-platform-tools.tar.gz && \
