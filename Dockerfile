@@ -3,10 +3,9 @@ MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
 
 RUN pacman -Syu --noconfirm 
 RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig freetype2 libxrender lib32-glibc lib32-gcc-libs npm --noconfirm
-RUN useradd -m -g users -s /bin/bash user;
-RUN chgrp users -R /opt/ && chmod 777 -R /opt && cd /opt
+RUN useradd -m -g users -s /bin/bash user && chgrp users -R /opt/ && chmod 777 -R /opt && cd /opt
 RUN mkdir download && chmod 777 -R download && chgrp users -R download
-RUN cd download && wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz && tar -zxvf android-sdk.tar.gz && cd android-sdk && pwd && sudo -u user makepkg
+RUN cd download && wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz && chmod 777 /opt/download/android-sdk && tar -zxvf android-sdk.tar.gz && cd android-sdk && pwd && sudo -u user makepkg
 RUN exit;
 RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm;
 RUN su user;
