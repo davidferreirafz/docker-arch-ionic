@@ -1,6 +1,10 @@
 FROM base/archlinux
 MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
-
+ENV ANDROID_SDK_HOME /opt/android-sdk
+ENV ANDROID_SDK_ROOT /opt/android-sdk
+ENV ANDROID_HOME /opt/android-sdk
+ENV ANDROID_SDK /opt/android-sdk
+ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
 RUN pacman -Syu --noconfirm 
 RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig freetype2 \
             libxrender lib32-glibc lib32-gcc-libs npm python2 make gcc gradle --noconfirm
@@ -40,12 +44,18 @@ USER root
 RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-platform-26/  && /
     rm /opt/download/android-platform-26.tar.gz
-RUN pacman -Scc --noconfirm
+USER user
+RUN cd /opt/download && \
+    wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-build-tools.tar.gz    
+	tar -zxvf android-sdk-build-tools.tar.gz && \
+	cd android-sdk-build-tools && \
+	makepkg && \
+	ls && pwd
+USER root
+#RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm  && \
+#    rm -rf /opt/download/android-platform-26/  && /
+#    rm /opt/download/android-platform-26.tar.gz
 
-ENV ANDROID_SDK_HOME /opt/android-sdk
-ENV ANDROID_SDK_ROOT /opt/android-sdk 
-ENV ANDROID_HOME /opt/android-sdk 
-ENV ANDROID_SDK /opt/android-sdk
-ENV PATH  ${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+RUN pacman -Scc --noconfirm
 RUN npm install -g ionic cordova
 
