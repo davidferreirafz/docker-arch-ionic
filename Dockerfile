@@ -41,7 +41,11 @@ RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-
     rm -rf /opt/download/android-platform-26/  && /
     rm /opt/download/android-platform-26.tar.gz
 RUN pacman -Scc --noconfirm
-ENV ANDROID_HOME /opt/android-sdk \
-    PATH  ${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+ENV ANDROID_SDK_HOME /opt/android-sdk
+ENV ANDROID_SDK_ROOT /opt/android-sdk 
+ENV ANDROID_HOME /opt/android-sdk 
+ENV ANDROID_SDK /opt/android-sdk
+ENV PATH  ${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 RUN npm install -g ionic cordova
 
