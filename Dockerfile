@@ -60,4 +60,3 @@ RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.
     rm /opt/download/android-sdk-build-tools.tar.gz
 RUN pacman -Scc --noconfirm
 RUN npm install -g ionic cordova node-sass node-gyp
-
