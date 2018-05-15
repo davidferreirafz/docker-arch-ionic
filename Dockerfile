@@ -9,7 +9,7 @@ ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/bu
 RUN echo "[multilib]" >> /etc/pacman.conf && \ 
     echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf 
 RUN pacman -Syu --noconfirm 
-RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig freetype2 \
+RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig git freetype2 \
             libxrender lib32-glibc lib32-gcc-libs lib32-zlib npm python2 make gcc gradle --noconfirm
 RUN useradd -m -g users -s /bin/bash user && \
      mkdir /opt/download && \
