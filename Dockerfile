@@ -1,10 +1,13 @@
 FROM base/archlinux
 MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
+ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3
 ENV ANDROID_SDK_HOME /opt/android-sdk
 ENV ANDROID_SDK_ROOT /opt/android-sdk
 ENV ANDROID_HOME /opt/android-sdk
 ENV ANDROID_SDK /opt/android-sdk
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
+RUN echo "[multilib]" >> /etc/pacman.conf && \ 
+    echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf 
 RUN pacman -Syu --noconfirm 
 RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig freetype2 \
             libxrender lib32-glibc lib32-gcc-libs lib32-zlib npm python2 make gcc gradle --noconfirm
@@ -52,10 +55,9 @@ RUN cd /opt/download && \
 	makepkg && \
 	ls && pwd
 USER root
-#RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm  && \
-#    rm -rf /opt/download/android-platform-26/  && /
-#    rm /opt/download/android-platform-26.tar.gz
-
+RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.0.3-1-x86_64.pkg.tar.xz --noconfirm  && \
+    rm -rf /opt/download/android-sdk-build-tools/  && \
+    rm /opt/download/android-sdk-build-tools.tar.gz
 RUN pacman -Scc --noconfirm
 RUN npm install -g ionic cordova
 
