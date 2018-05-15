@@ -46,7 +46,7 @@ RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-
     rm /opt/download/android-platform-26.tar.gz
 USER user
 RUN cd /opt/download && \
-    wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-build-tools.tar.gz    
+    wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-build-tools.tar.gz && \   
 	tar -zxvf android-sdk-build-tools.tar.gz && \
 	cd android-sdk-build-tools && \
 	makepkg && \
