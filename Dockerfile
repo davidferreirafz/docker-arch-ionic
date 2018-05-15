@@ -1,5 +1,10 @@
 FROM base/archlinux
 MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
+
+ARG USER_HOME_DIR="/root"
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+
 ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3
 ENV ANDROID_SDK_HOME /opt/android-sdk
 ENV ANDROID_SDK_ROOT /opt/android-sdk
@@ -61,3 +66,5 @@ RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.
 RUN pacman -Scc --noconfirm
 RUN npm install -g ionic cordova --force
 #cordova node-sass node-gyp
+
+VOLUME "$USER_HOME_DIR/.m2"
