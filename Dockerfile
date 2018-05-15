@@ -20,7 +20,7 @@ RUN cd /opt/download && \
 	ls && pwd
 USER root
 RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm  && \
-    rm -rf /opt/download/android-sdk/ && /
+    rm -rf /opt/download/android-sdk/ && \
     rm /opt/download/android-sdk.tar.gz
 USER user
 RUN cd /opt/download && \
@@ -31,7 +31,7 @@ RUN cd /opt/download && \
 	ls && pwd
 USER root
 RUN pacman -U /opt/download/android-sdk-platform-tools/android-sdk-platform-tools-r27.0.1-1-x86_64.pkg.tar.xz --noconfirm  && \
-    rm -rf /opt/download/android-sdk-platform-tools/  && /
+    rm -rf /opt/download/android-sdk-platform-tools/  && \
     rm /opt/download/android-sdk-platform-tools.tar.gz
 USER user
 RUN cd /opt/download && \
@@ -42,7 +42,7 @@ RUN cd /opt/download && \
 	ls && pwd
 USER root
 RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm  && \
-    rm -rf /opt/download/android-platform-26/  && /
+    rm -rf /opt/download/android-platform-26/  && \
     rm /opt/download/android-platform-26.tar.gz
 USER user
 RUN cd /opt/download && \
