@@ -1,5 +1,5 @@
-#FROM base/archlinux
-FROM pritunl/archlinux:2018-05-12
+FROM base/archlinux
+#FROM pritunl/archlinux:2018-05-12
 MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
 
 ARG USER_HOME_DIR="/root"
@@ -65,8 +65,8 @@ USER root
 RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.0.3-1-x86_64.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-sdk-build-tools/  && \
     rm /opt/download/android-sdk-build-tools.tar.gz
-RUN pacman -Scc --noconfirm
-RUN npm install -g ionic cordova --force
+RUN pacman -Sc --noconfirm
+RUN npm install -g ionic cordova node-sass --force
 #cordova node-sass node-gyp
 
-VOLUME "$USER_HOME_DIR/.m2"
+VOLUME "/root/"
