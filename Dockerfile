@@ -17,7 +17,7 @@ ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/bu
 #RUN pacman -Syu --noconfirm 
 RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig git freetype2 \
             libxrender lib32-glibc lib32-gcc-libs npm python2 make gcc gradle --noconfirm
-RUN pacman -U http://mirror.pritunl.com/archlinux/all/lib32-zlib-1.2.11-1
+RUN pacman -U http://mirror.pritunl.com/archlinux/all/lib32-zlib-1.2.11-1 --noconfirm
 RUN useradd -m -g users -s /bin/bash user && \
      mkdir /opt/download && \
 	 chown user -R /opt/download
