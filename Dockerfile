@@ -1,4 +1,5 @@
-FROM base/archlinux
+#FROM base/archlinux
+FROM pritunl/archlinux:2018-05-12
 MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
 
 ARG USER_HOME_DIR="/root"
@@ -13,7 +14,7 @@ ENV ANDROID_SDK /opt/android-sdk
 ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
 RUN echo "[multilib]" >> /etc/pacman.conf && \ 
     echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf 
-RUN pacman -Syu --noconfirm 
+#RUN pacman -Syu --noconfirm 
 RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig git freetype2 \
             libxrender lib32-glibc lib32-gcc-libs lib32-zlib npm python2 make gcc gradle --noconfirm
 RUN useradd -m -g users -s /bin/bash user && \
