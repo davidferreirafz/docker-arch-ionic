@@ -4,8 +4,9 @@ MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
 LABEL 
 	  com.dukitan.tag="asdk26_ionic320" \
 	  com.dukitan.release-date="2018-05-17" \
+	  com.dukitan.asdk_version="26" \	  	  
+	  com.dukitan.nodejs="8.8.1" \	  
 	  com.dukitan.ionic_version="3.20.0" \
-	  com.dukitan.asdk_version="26" \	  
 	  com.dukitan.cordova_version="8.0.0" 
 
 ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3 
@@ -63,7 +64,9 @@ RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-
 USER user 
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-build-tools.tar.gz && \   
-    tar -zxvf android-sdk-build-tools.tar.gz && \ cd android-sdk-build-tools && \ makepkg && \ ls && pwd 
+    tar -zxvf android-sdk-build-tools.tar.gz && \ 
+	cd android-sdk-build-tools && \ 
+	makepkg
 USER root 
 RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.0.3-1-x86_64.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-sdk-build-tools/  && \
