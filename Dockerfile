@@ -1,11 +1,10 @@
 FROM base/archlinux 
 MAINTAINER David Ferreira <davidferreira.fz@gmail.com> 
 
-LABEL 
-	  com.dukitan.tag="asdk26" \
-	  com.dukitan.release-date="2018-05-17" \
-	  com.dukitan.asdk_version="26" \
-	  com.dukitan.nodejs="8.8.1" 
+LABEL com.dukitan.tag="asdk26"
+LABEL com.dukitan.release-date="2018-05-17"
+LABEL com.dukitan.asdk_version="26"
+LABEL com.dukitan.nodejs="8.8.1" 
 
 
 ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3 
