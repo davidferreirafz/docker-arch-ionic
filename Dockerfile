@@ -1,73 +1,75 @@
-FROM base/archlinux
-#FROM pritunl/archlinux:2018-05-12
-MAINTAINER David Ferreira <davidferreira.fz@gmail.com>
+FROM base/archlinux 
+MAINTAINER David Ferreira <davidferreira.fz@gmail.com> 
 
-#ARG USER_HOME_DIR="/root"
-#ENV MAVEN_HOME /usr/share/maven
-ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3
-ENV ANDROID_SDK_HOME /opt/android-sdk
-ENV ANDROID_SDK_ROOT /opt/android-sdk
-ENV ANDROID_HOME /opt/android-sdk
-ENV ANDROID_SDK /opt/android-sdk
-ENV PATH $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION
-#RUN echo "[multilib]" >> /etc/pacman.conf && \ 
-#    echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf 
-RUN date
-RUN pacman -Syu --noconfirm 
-RUN pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig git freetype2 \
-            libxrender lib32-glibc lib32-gcc-libs npm python2 make gcc gradle --noconfirm
-RUN pacman -U http://mirror.pritunl.com/archlinux/all/lib32-zlib-1.2.11-1 --noconfirm
+LABEL 
+	  com.dukitan.tag="asdk26_ionic320" \
+	  com.dukitan.release-date="2018-05-17" \
+	  com.dukitan.ionic_version="3.20.0" \
+	  com.dukitan.asdk_version="26" \	  
+	  com.dukitan.cordova_version="8.0.0" 
+
+ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3 
+ENV ANDROID_SDK_HOME /opt/android-sdk 
+ENV ANDROID_SDK_ROOT /opt/android-sdk 
+ENV ANDROID_HOME /opt/android-sdk 
+ENV ANDROID_SDK /opt/android-sdk 
+ENV NPM_CONFIG_PREFIX /opt/npm/npm-global
+ENV PATH  $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION:/opt/npm/npm-global/bin 
+
+
+RUN pacman -Syu --noconfirm && \
+    pacman -U http://mirror.pritunl.com/archlinux/all/icu-59.1-2 \
+              http://mirror.pritunl.com/archlinux/all/http-parser-2.7.1-1 \
+              http://mirror.pritunl.com/archlinux/all/nodejs-8.8.1-1 \
+              http://mirror.pritunl.com/archlinux/all/npm-5.6.0-1 \
+              http://mirror.pritunl.com/archlinux/all/lib32-zlib-1.2.11-1 --noconfirm && \
+    pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig git freetype2 \
+              libxrender lib32-glibc lib32-gcc-libs python2 make gcc gradle  --noconfirm
 RUN useradd -m -g users -s /bin/bash user && \
-     mkdir /opt/download && \
-     chown user -R /opt/download
-RUN date    
-USER user
+    mkdir /opt/download && \
+    chown user -R /opt/download && \
+    mkdir /opt/npm/npm-global -p && \
+    chmod 777 -R /opt/npm/npm-global
+USER user 
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz && \
     tar -zxvf android-sdk.tar.gz && \
     cd android-sdk && \
-    makepkg && \
-   ls && pwd
-USER root
+    makepkg
+USER root 
 RUN pacman -U /opt/download/android-sdk/android-sdk-26.1.1-1-x86_64.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-sdk/ && \
     rm /opt/download/android-sdk.tar.gz
-USER user
+USER user 
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-platform-tools.tar.gz && \
 	tar -zxvf android-sdk-platform-tools.tar.gz && \
 	cd android-sdk-platform-tools && \
-	makepkg && \
-	ls && pwd
-USER root
+	makepkg
+USER root 
 RUN pacman -U /opt/download/android-sdk-platform-tools/android-sdk-platform-tools-r27.0.1-1-x86_64.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-sdk-platform-tools/  && \
     rm /opt/download/android-sdk-platform-tools.tar.gz
-USER user
+USER user 
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-platform-26.tar.gz && \
 	tar -zxvf android-platform-26.tar.gz && \
 	cd android-platform-26 && \
-	makepkg && \
-	ls && pwd
-USER root
+	makepkg
+USER root 
 RUN pacman -U /opt/download/android-platform-26/android-platform-26-8.0.0_r02-1-any.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-platform-26/  && \
     rm /opt/download/android-platform-26.tar.gz
-USER user
+USER user 
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk-build-tools.tar.gz && \   
-	tar -zxvf android-sdk-build-tools.tar.gz && \
-	cd android-sdk-build-tools && \
-	makepkg && \
-	ls && pwd
-USER root
+    tar -zxvf android-sdk-build-tools.tar.gz && \ cd android-sdk-build-tools && \ makepkg && \ ls && pwd 
+USER root 
 RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.0.3-1-x86_64.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-sdk-build-tools/  && \
     rm /opt/download/android-sdk-build-tools.tar.gz
-RUN date    
-RUN npm install -g ionic cordova --force
-#cordova node-sass node-gyp
-RUN pacman -Sc --noconfirm
-VOLUME "/root/"
-RUN date
+RUN npm install npm@latest -g && \
+    npm install -g node-gyp@3.6.2 cordova@8.0.0 ionic@3.20.0
+RUN pacman -Sc --noconfirm && rm -r /var/cache/pacman/pkg/*
+
+VOLUME "/opt/npm/npm-global:/root"
