@@ -14,6 +14,7 @@ ENV ANDROID_SDK_ROOT /opt/android-sdk
 ENV ANDROID_HOME /opt/android-sdk 
 ENV ANDROID_SDK /opt/android-sdk 
 ENV NPM_CONFIG_PREFIX /opt/npm/npm-global
+ENV M2_HOME /opt/maven
 ENV PATH  $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION:/opt/npm/npm-global/bin 
 
 
@@ -29,7 +30,9 @@ RUN useradd -m -g users -s /bin/bash user && \
     mkdir /opt/download && \
     chown user -R /opt/download && \
     mkdir /opt/npm/npm-global -p && \
-    chmod 777 -R /opt/npm/npm-global
+    chmod 777 -R /opt/npm/npm-global && \
+    mkdir /opt/maven && \
+    chmod 777 -R /opt/maven
 USER user 
 RUN cd /opt/download && \
     wget https://aur.archlinux.org/cgit/aur.git/snapshot/android-sdk.tar.gz && \
@@ -75,8 +78,8 @@ RUN npm install npm@latest -g && \
 	cordova telemetry off && \
 	ionic config set -g daemon.updates false && \
 	ionic config set -g telemetry false && \
-	npm cache clear --force 
-#	npm config set offline true 	
+	npm config set offline true 	
+#	npm cache clear --force 	
 RUN pacman -Sc --noconfirm && rm -r /var/cache/pacman/pkg/*
 
-#VOLUME "/opt/npm/npm-global:/root"
+VOLUME "/opt/npm/npm-global:/opt/maven:/root"
