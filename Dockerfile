@@ -75,10 +75,11 @@ RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.
     rm /opt/download/android-sdk-build-tools.tar.gz
 RUN npm install npm@latest -g && \
     npm install -g node-gyp@3.6.2 cordova@8.0.0 ionic@3.20.0 && \
+    npm install @ionic/app-scripts@latest --save-dev && \
 	cordova telemetry off && \
 	ionic config set -g daemon.updates false && \
 	ionic config set -g telemetry false && \
-	npm config set offline true 	
+	npm config set offline false 	
 #	npm cache clear --force 	
 RUN pacman -Sc --noconfirm && rm -r /var/cache/pacman/pkg/*
 
