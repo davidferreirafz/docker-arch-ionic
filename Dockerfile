@@ -14,7 +14,7 @@ ENV ANDROID_SDK_ROOT /opt/android-sdk
 ENV ANDROID_HOME /opt/android-sdk 
 ENV ANDROID_SDK /opt/android-sdk 
 ENV NPM_CONFIG_PREFIX /opt/npm/npm-global
-ENV M2_HOME /opt/maven
+#ENV M2_HOME /opt/maven
 ENV PATH  $PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION:/opt/npm/npm-global/bin 
 
 
@@ -22,10 +22,9 @@ RUN pacman -Syu --noconfirm && \
     pacman -U http://mirror.pritunl.com/archlinux/all/icu-59.1-2 \
               http://mirror.pritunl.com/archlinux/all/http-parser-2.7.1-1 \
               http://mirror.pritunl.com/archlinux/all/nodejs-8.8.1-1 \
-              http://mirror.pritunl.com/archlinux/all/npm-5.6.0-1 \
               http://mirror.pritunl.com/archlinux/all/lib32-zlib-1.2.11-1 --noconfirm && \
     pacman -S jdk8-openjdk fakeroot wget binutils sudo libxtst fontconfig git freetype2 \
-              libxrender lib32-glibc lib32-gcc-libs python2 make gcc gradle  --noconfirm
+              libxrender lib32-glibc lib32-gcc-libs python2 make gcc npm gradle  --noconfirm
 RUN useradd -m -g users -s /bin/bash user && \
     mkdir /opt/download && \
     chown user -R /opt/download && \
@@ -75,12 +74,13 @@ RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.
     rm /opt/download/android-sdk-build-tools.tar.gz
 RUN npm install npm@latest -g && \
     npm install -g node-gyp@3.6.2 cordova@8.0.0 ionic@3.20.0 && \
-    npm install @ionic/app-scripts@latest --save-dev && \
+    npm install -g @ionic/app-scripts@latest && \
 	cordova telemetry off && \
 	ionic config set -g telemetry false && \
 	npm config set offline false 	
 #	ionic config set -g daemon.updates false && \
-#	npm cache clear --force 	
+#	npm cache clear --force 
+RUN chmod 777 /opt/npm
 RUN pacman -Sc --noconfirm && rm -r /var/cache/pacman/pkg/*
 
-VOLUME "/opt/npm/npm-global:/opt/maven:/root"
+VOLUME "/opt /root"
