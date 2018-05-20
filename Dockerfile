@@ -83,4 +83,4 @@ RUN npm install npm@latest -g && \
 RUN chmod 777 /opt/npm
 RUN pacman -Sc --noconfirm && rm -r /var/cache/pacman/pkg/*
 
-VOLUME "/opt /root"
+VOLUME ["/opt", "/root"]
