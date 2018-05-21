@@ -72,15 +72,16 @@ USER root
 RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.0.3-1-x86_64.pkg.tar.xz --noconfirm  && \
     rm -rf /opt/download/android-sdk-build-tools/  && \
     rm /opt/download/android-sdk-build-tools.tar.gz
-RUN npm install npm@latest -g && \
-    npm install -g node-gyp@3.6.2 cordova@8.0.0 ionic@3.20.0 && \
+RUN npm -g config set user root && \
+    npm install npm@latest -g && \
+    npm install -g node-gyp@3.6.2 cordova@8.0.0 ionic@3.20.0  && \
     npm install -g @ionic/app-scripts@latest && \
 	cordova telemetry off && \
 	ionic config set -g telemetry false && \
 	npm config set offline false 	
 #	ionic config set -g daemon.updates false && \
 #	npm cache clear --force 
-RUN chmod 777 /opt/npm
+RUN chmod 777 /opt
 RUN pacman -Sc --noconfirm && rm -r /var/cache/pacman/pkg/*
 
 VOLUME ["/opt", "/root"]
