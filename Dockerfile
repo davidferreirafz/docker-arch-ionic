@@ -6,7 +6,7 @@ LABEL com.dukitan.release-date="2018-05-17"
 LABEL com.dukitan.asdk_version="26" 
 LABEL com.dukitan.nodejs="8.8.1"  
 LABEL com.dukitan.ionic_version="3.20.0" 
-LABEL com.dukitan.cordova_version="8.0.0" 
+LABEL com.dukitan.cordova_version="7.1.0" 
 
 ENV ANDROID_BUILD_TOOLS_VERSION 27.0.3 
 ENV ANDROID_SDK_HOME /opt/android-sdk 
@@ -74,7 +74,7 @@ RUN pacman -U /opt/download/android-sdk-build-tools/android-sdk-build-tools-r27.
     rm /opt/download/android-sdk-build-tools.tar.gz
 RUN npm -g config set user root && \
     npm install npm@latest -g && \
-    npm install -g node-gyp@3.6.2 cordova@8.0.0 ionic@3.20.0  && \
+    npm install -g node-gyp@3.6.2 cordova@7.1.0 ionic@3.20.0  && \
     npm install -g @ionic/app-scripts@latest && \
 	cordova telemetry off && \
 	ionic config set -g telemetry false && \
